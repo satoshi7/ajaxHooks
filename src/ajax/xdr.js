@@ -9,7 +9,7 @@ if ( window.XDomainRequest ) {
 			return {
 				send: function( _, complete ) {
 					function callback( status, statusText, responses, responseHeaders ) {
-						xdr.onload = xdr.onerror = xdr.ontimeout = jQuery.noop;
+						xdr.onload = xdr.onerror = xdr.ontimeout = function(){};
 						xdr = undefined;
 						complete( status, statusText, responses, responseHeaders );
 					}
@@ -20,7 +20,7 @@ if ( window.XDomainRequest ) {
 					xdr.onerror = function() {
 						callback( 404, "Not Found" );
 					};
-					xdr.onprogress = jQuery.noop;
+					xdr.onprogress = function(){};
 					xdr.ontimeout = function() {
 						callback( 0, "timeout" );
 					};
@@ -30,7 +30,7 @@ if ( window.XDomainRequest ) {
 				},
 				abort: function() {
 					if ( xdr ) {
-						xdr.onerror = jQuery.noop();
+						xdr.onerror = function(){};
 						xdr.abort();
 					}
 				}
